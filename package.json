@@ -2,7 +2,7 @@
   "name": "sero",
   "version": "1.0.0",
   "description": "Lightweight transition layer for Next.js Links: delay, preload, and animate page transitions.",
-  "keywords": [],
+  "keywords": ["nextjs", "transitions", "links", "animation", "preload"],
   "homepage": "https://github.com/piecemakr/sero#readme",
   "bugs": {
     "url": "https://github.com/piecemakr/sero/issues"
@@ -13,10 +13,26 @@
   },
   "license": "ISC",
   "author": "piecemakr",
-  "type": "commonjs",
-  "main": "index.js",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
   },
   "packageManager": "pnpm@10.14.0"
 }
