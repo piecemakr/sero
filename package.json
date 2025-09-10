@@ -1,0 +1,16 @@
+{
+  "name": "sero",
+  "version": "0.1.0",
+  "description": "Framework-agnostic route transitions for Next.js App Router",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
