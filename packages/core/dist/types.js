@@ -1,4 +1,5 @@
 export class SeroError extends Error {
+    code;
     constructor(message, code) {
         super(message);
         this.code = code;
@@ -6,6 +7,7 @@ export class SeroError extends Error {
     }
 }
 export class NavigationError extends SeroError {
+    originalError;
     constructor(message, originalError) {
         super(message, 'NAVIGATION_ERROR');
         this.originalError = originalError;
@@ -13,10 +15,10 @@ export class NavigationError extends SeroError {
     }
 }
 export class TransitionError extends SeroError {
+    originalError;
     constructor(message, originalError) {
         super(message, 'TRANSITION_ERROR');
         this.originalError = originalError;
         this.name = 'TransitionError';
     }
 }
-//# sourceMappingURL=types.js.map

@@ -1,4 +1,4 @@
-import type { NavigateFn } from './types';
+import type { NavigateFn } from './types.js';
 
 /**
  * Wrap navigation with the View Transitions API when available and requested.

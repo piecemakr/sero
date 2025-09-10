@@ -113,7 +113,7 @@ Provider component that wraps your app and configures Sero.
 
 **Props:**
 - `children`: React children
-- `options`: Optional configuration object (see `ConfigureOptions` from sero-core)
+- `options`: Optional configuration object (see `ConfigureOptions` from @sero/core)
 
 #### `SeroLink`
 
@@ -134,7 +134,7 @@ Link component that triggers route transitions.
 
 **Props:**
 - `href`: Target URL
-- `options`: Transition options (see `BeginOptions` from sero-core)
+- `options`: Transition options (see `BeginOptions` from @sero/core)
 - `replace`: Use `history.replaceState` instead of `pushState`
 - `scroll`: Whether to scroll to top after navigation
 - `shallow`: Shallow routing (Next.js specific)
@@ -229,8 +229,8 @@ import { SeroNextLink } from './components/SeroNextLink';
 
 ## TypeScript Support
 
-This package is fully typed and exports all necessary types from both `sero-react` and `sero-core` for your convenience.
+This package is fully typed and exports all necessary types from both `@sero/react` and `@sero/core` for your convenience.
 
 ## Examples
 
-See the [sero-core documentation](../core/README.md) for more details on the underlying transition system and configuration options.
+See the [@sero/core documentation](../core/README.md) for more details on the underlying transition system and configuration options.

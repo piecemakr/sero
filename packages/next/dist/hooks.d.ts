@@ -22,4 +22,3 @@ export declare const useNavigate: () => {
         shallow?: boolean;
     }) => Promise<void>;
 };
-//# sourceMappingURL=hooks.d.ts.map

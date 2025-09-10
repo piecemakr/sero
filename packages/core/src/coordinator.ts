@@ -5,11 +5,11 @@ import type {
   Subscriber,
   TransitionContext,
   NavigateFn
-} from './types';
-import { NavigationError, TransitionError } from './types';
-import { prefersReducedMotion, safeCall } from './utils';
-import { withDelay, withTimeout } from './guards';
-import { withViewTransition } from './viewTransitions';
+} from './types.js';
+import { NavigationError, TransitionError } from './types.js';
+import { prefersReducedMotion, safeCall } from './utils.js';
+import { withDelay, withTimeout } from './guards.js';
+import { withViewTransition } from './viewTransitions.js';
 
 type InternalConfig = Required<ConfigureOptions>;
 

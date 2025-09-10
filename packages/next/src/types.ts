@@ -41,4 +41,4 @@ export type {
   ConfigureOptions,
   Subscriber,
   NavigateFn,
-} from 'sero-core';
+} from '@sero/core';

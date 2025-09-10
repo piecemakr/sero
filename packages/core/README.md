@@ -1,28 +1,19 @@
-# sero-core
+# @sero/core
 
-Framework-agnostic core for route transitions in Next.js App Router–style apps.
+The core transition coordinator for Sero. This package provides the framework-agnostic API for managing page transitions.
 
-- Phases: `idle → exiting → navigating → entering → idle`
-- Lifecycle: `beginTransition(navigate, opts)` orchestrates exit delay, navigation (optionally via View Transitions), then enter.
-- Pub/Sub: `subscribe((ctx) => ...)` to animate **anywhere** in your app.
-- No React dependency. Pair it with a React adapter later.
-
-## Install
+## Installation
 
 ```bash
 npm install @sero/core
-# or
-pnpm add @sero/core
-# or
-yarn add @sero/core
 ```
 
-## Quick Start (pseudo)
+## Basic Usage
 
-```typescript
+```ts
 import { sero } from '@sero/core';
 
-// 1) Configure global defaults (optional)
+// Configure global settings
 sero.configure({
   delayMs: 200,
   viewTransitions: true,
@@ -30,42 +21,106 @@ sero.configure({
   timeoutMs: 1500
 });
 
-// 2) Keep paths in sync (your adapter should call this on route intent)
-sero.setPaths(currentPathname, targetPathname);
-
-// 3) Subscribe anywhere to react to phases
+// Subscribe to transition events
 const unsubscribe = sero.subscribe(({ phase, prevPath, nextPath }) => {
-  if (phase === 'exiting') {
-    // kick off exit animations
-  } else if (phase === 'entering') {
-    // run entrance animations
-  }
+  console.log(`Phase: ${phase}, ${prevPath} → ${nextPath}`);
 });
 
-// 4) Run a transition around actual navigation
+// Start a transition
 await sero.beginTransition(() => router.push('/about'), {
-  delayMs: 250,
-  onBeforeNavigate: () => {/* e.g., add body class */},
-  onAfterNavigate: () => {/* e.g., focus h1 */},
-  blockIf: () => hasUnsavedChanges,
-  viewTransition: true,
-  timeoutMs: 1500
+  delayMs: 300,
+  onBeforeNavigate: () => document.body.classList.add('exiting'),
+  onAfterNavigate: () => document.body.classList.remove('exiting')
 });
+```
 
-// 5) If a back/forward happens outside your control:
+## API
+
+### `sero.configure(options)`
+
+Configure global settings for all transitions.
+
+```ts
+sero.configure({
+  delayMs?: number;           // Default delay before navigation (200ms)
+  viewTransitions?: boolean;  // Use View Transitions API (true)
+  respectReducedMotion?: boolean; // Respect prefers-reduced-motion (true)
+  timeoutMs?: number;         // Safety timeout (1500ms)
+});
+```
+
+### `sero.beginTransition(navigate, options)`
+
+Start a transition with the given navigation function.
+
+```ts
+await sero.beginTransition(() => router.push('/about'), {
+  delayMs?: number;           // Override global delay
+  viewTransition?: boolean;   // Override global View Transitions setting
+  blockIf?: () => boolean;    // Block navigation if returns true
+  timeoutMs?: number;         // Override global timeout
+  onBeforeNavigate?: () => void | Promise<void>; // Called before navigation
+  onAfterNavigate?: () => void | Promise<void>;  // Called after navigation
+});
+```
+
+### `sero.setPaths(prev, next)`
+
+Set the current and target paths for tracking.
+
+```ts
+sero.setPaths('/home', '/about');
+```
+
+### `sero.subscribe(callback)`
+
+Subscribe to transition events. Returns an unsubscribe function.
+
+```ts
+const unsubscribe = sero.subscribe((context) => {
+  const { phase, prevPath, nextPath } = context;
+  // Handle transition events
+});
+```
+
+### `sero.notifyExternalNavigation()`
+
+Notify the coordinator of external navigation (back/forward buttons).
+
+```ts
 sero.notifyExternalNavigation();
 ```
 
-## Notes
+## Transition Phases
 
-sero-core doesn't know about React or Next. Your React adapter should:
+The coordinator goes through these phases during a transition:
 
-- Call `sero.setPaths(prev, next)` on link click (intent).
-- Wrap `router.push()` with `sero.beginTransition(...)`.
-- Watch pathname changes and call `sero.notifyExternalNavigation()` for back/forward.
+1. **`idle`** - No transition in progress
+2. **`exiting`** - Current page is exiting (callbacks fired)
+3. **`navigating`** - Navigation is happening (View Transitions API if enabled)
+4. **`entering`** - New page is entering (callbacks fired)
+5. **`idle`** - Transition complete
 
-When you add a React adapter later, you'll expose `<SeroProvider/>`, `<SeroLink/>`, and `useRouteTransition()` using this core.
+## View Transitions API
 
-## Types
+When `viewTransitions: true` and the browser supports it, Sero will use the native View Transitions API for smooth transitions. Otherwise, it falls back to plain navigation.
 
-See `src/types.ts` for `BeginOptions`, `ConfigureOptions`, and `TransitionContext`.
+## Accessibility
+
+Sero automatically respects `prefers-reduced-motion` when `respectReducedMotion: true` (default). This skips delays and View Transitions for users who prefer reduced motion.
+
+## Error Handling
+
+All transitions are wrapped in try-catch blocks. If an error occurs:
+
+1. The coordinator resets to `idle` state
+2. A `TransitionError` is thrown
+3. Subscribers are notified of the state change
+
+## TypeScript
+
+This package is written in TypeScript and provides full type definitions.
+
+```ts
+import type { Phase, TransitionContext, BeginOptions } from '@sero/core';
+```

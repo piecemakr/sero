@@ -18,4 +18,3 @@ export function safeCall(fn) {
         return Promise.resolve();
     }
 }
-//# sourceMappingURL=utils.js.map

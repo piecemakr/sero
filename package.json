@@ -9,13 +9,19 @@
     "dev": "pnpm -r dev",
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean",
+    "lint": "echo 'Linting not configured yet'",
+    "test": "echo 'Tests not configured yet'",
     "publish:npm": "pnpm -r publish --access public",
     "publish:github": "pnpm -r publish --registry https://npm.pkg.github.com",
     "version": "pnpm -r exec -- npm version",
     "prepublish": "pnpm build && pnpm typecheck",
-    "release": "pnpm prepublish && pnpm publish:npm"
+    "release": "pnpm prepublish && pnpm publish:npm",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release:ci": "changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "typescript": "^5.5.4"
   }
 }

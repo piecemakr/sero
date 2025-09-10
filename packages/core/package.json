@@ -28,6 +28,7 @@
     "clean": "rimraf dist",
     "dev": "tsc -w -p tsconfig.json",
     "typecheck": "tsc --noEmit -p tsconfig.json",
+    "prepublishOnly": "pnpm -w build",
     "size": "size-limit",
     "analyze": "npx bundlesize"
   },

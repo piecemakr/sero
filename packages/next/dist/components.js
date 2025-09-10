@@ -61,4 +61,3 @@ export const withSeroTransition = (LinkComponent) => {
         return (_jsx(LinkComponent, { ...props, href: href, ref: ref, onClick: handleClick }));
     });
 };
-//# sourceMappingURL=components.js.map

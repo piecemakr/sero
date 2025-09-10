@@ -1,7 +1,7 @@
-import { TransitionError } from './types';
-import { prefersReducedMotion, safeCall } from './utils';
-import { withDelay, withTimeout } from './guards';
-import { withViewTransition } from './viewTransitions';
+import { TransitionError } from './types.js';
+import { prefersReducedMotion, safeCall } from './utils.js';
+import { withDelay, withTimeout } from './guards.js';
+import { withViewTransition } from './viewTransitions.js';
 const DEFAULTS = {
     delayMs: 200,
     viewTransitions: true,
@@ -9,13 +9,11 @@ const DEFAULTS = {
     timeoutMs: 1500
 };
 export class SeroCoordinator {
-    constructor() {
-        this.phase = 'idle';
-        this.prevPath = null;
-        this.nextPath = null;
-        this.subs = new Set();
-        this.config = { ...DEFAULTS };
-    }
+    phase = 'idle';
+    prevPath = null;
+    nextPath = null;
+    subs = new Set();
+    config = { ...DEFAULTS };
     configure(opts = {}) {
         this.config = { ...this.config, ...opts };
     }
@@ -26,6 +24,7 @@ export class SeroCoordinator {
         this.subs.add(fn);
         return () => this.subs.delete(fn);
     }
+    /** For adapters (e.g., React) to keep paths in sync on route changes */
     setPaths(prev, next) {
         this.prevPath = prev;
         this.nextPath = next;
@@ -36,6 +35,7 @@ export class SeroCoordinator {
             prevPath: this.prevPath,
             nextPath: this.nextPath
         };
+        // Fire sequentially to keep ordering deterministic
         for (const fn of this.subs) {
             try {
                 await Promise.resolve(fn(ctx));
@@ -45,19 +45,27 @@ export class SeroCoordinator {
             }
         }
     }
+    /**
+     * Orchestrate exit -> (optional delay) -> navigate (optional VT) -> enter
+     * The adapter supplies the real navigation function.
+     */
     async beginTransition(navigate, opts = {}) {
         const startTime = performance.now();
         try {
+            // Guard: blockIf
             if (opts.blockIf?.())
                 return;
             const rm = this.config.respectReducedMotion && prefersReducedMotion();
             const delay = rm ? 0 : opts.delayMs ?? this.config.delayMs;
             const timeoutMs = opts.timeoutMs ?? this.config.timeoutMs;
             const useVT = (opts.viewTransition ?? this.config.viewTransitions) && !rm;
+            // EXIT
             this.phase = 'exiting';
             await this.emit();
             await safeCall(opts.onBeforeNavigate);
+            // Optional delay (for exit animations to be visible)
             await withDelay(async () => { }, delay);
+            // NAVIGATE (VT wrapper + safety timeout)
             this.phase = 'navigating';
             await this.emit();
             await withTimeout(async () => {
@@ -68,11 +76,14 @@ export class SeroCoordinator {
                     await navigate();
                 }
             }, timeoutMs);
+            // ENTER
             this.phase = 'entering';
             await this.emit();
             await safeCall(opts.onAfterNavigate);
+            // back to idle
             this.phase = 'idle';
             await this.emit();
+            // Performance tracking (optional - only in development)
             if (typeof window !== 'undefined' && window.__SERO_DEBUG__) {
                 const duration = performance.now() - startTime;
                 console.debug(`Sero transition completed in ${duration.toFixed(2)}ms`, {
@@ -84,6 +95,7 @@ export class SeroCoordinator {
             }
         }
         catch (error) {
+            // Reset to idle state on error
             this.phase = 'idle';
             await this.emit();
             if (error instanceof Error) {
@@ -92,12 +104,14 @@ export class SeroCoordinator {
             throw new TransitionError('Unknown transition error');
         }
     }
+    /** To be called by adapters when navigation happens outside our control (back/forward) */
     async notifyExternalNavigation() {
+        // We simulate a minimal entering pulse so subscribers can react.
         this.phase = 'entering';
         await this.emit();
         this.phase = 'idle';
         await this.emit();
     }
 }
+/** Singleton for simple integration; adapters can also create their own instance */
 export const sero = new SeroCoordinator();
-//# sourceMappingURL=coordinator.js.map

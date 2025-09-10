@@ -1,11 +1,20 @@
 import type { BeginOptions } from '@sero/core';
 import type { UseTransitionOptions } from './types';
+/**
+ * Hook to subscribe to route transition phases
+ */
 export declare const useTransition: (options?: UseTransitionOptions) => void;
+/**
+ * Hook to get current transition state
+ */
 export declare const useTransitionState: () => Readonly<{
     phase: string;
     prevPath: string | null;
     nextPath: string | null;
 }>;
+/**
+ * Hook for programmatic navigation with transitions
+ */
 export declare const useNavigate: () => {
     navigate: (href: string, options?: BeginOptions & {
         replace?: boolean;
@@ -13,4 +22,3 @@ export declare const useNavigate: () => {
         shallow?: boolean;
     }) => Promise<void>;
 };
-//# sourceMappingURL=hooks.d.ts.map

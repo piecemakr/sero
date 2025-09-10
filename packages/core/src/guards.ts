@@ -1,4 +1,4 @@
-import { sleep } from './utils';
+import { sleep } from './utils.js';
 
 export async function withDelay<T>(fn: () => T | Promise<T>, ms?: number): Promise<T> {
   if (!ms || ms <= 0) return Promise.resolve(fn());

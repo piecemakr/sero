@@ -4,9 +4,30 @@ This guide covers how to publish the Sero packages to both NPM and GitHub Packag
 
 ## 🚀 Quick Publish (Recommended)
 
-### 1. **Automated Publishing via GitHub Actions**
+### 1. **Using Changesets (Recommended)**
 
-The easiest way to publish is using the GitHub Actions workflow:
+The easiest way to publish is using Changesets for version management:
+
+1. **Add a changeset:**
+   ```bash
+   pnpm changeset
+   # Follow prompts to describe your changes
+   ```
+
+2. **Version packages:**
+   ```bash
+   pnpm version-packages
+   # This updates version numbers and creates a release commit
+   ```
+
+3. **Publish:**
+   ```bash
+   pnpm release:ci
+   # Or push to trigger GitHub Actions
+   git push origin main
+   ```
+
+### 2. **Automated Publishing via GitHub Actions**
 
 1. **Create a release on GitHub:**
    ```bash
@@ -21,7 +42,6 @@ The easiest way to publish is using the GitHub Actions workflow:
    - Builds all packages
    - Runs type checking
    - Publishes to NPM
-   - Publishes to GitHub Packages
 
 ### 2. **Manual Publishing**
 

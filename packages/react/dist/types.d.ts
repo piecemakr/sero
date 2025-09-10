@@ -32,4 +32,3 @@ export interface SeroContextValue {
     setPaths: (prev: string | null, next: string | null) => void;
     notifyExternalNavigation: () => Promise<void>;
 }
-//# sourceMappingURL=types.d.ts.map

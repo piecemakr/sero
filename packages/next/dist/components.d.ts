@@ -13,4 +13,3 @@ export declare const withSeroTransition: <P extends {
 }>(LinkComponent: React.ComponentType<P>) => React.ForwardRefExoticComponent<React.PropsWithoutRef<P & {
     transitionOptions?: import("@sero/core").BeginOptions;
 }> & React.RefAttributes<HTMLElement>>;
-//# sourceMappingURL=components.d.ts.map

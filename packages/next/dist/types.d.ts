@@ -32,5 +32,4 @@ export interface SeroNextContextValue {
     setPaths: (prev: string | null, next: string | null) => void;
     notifyExternalNavigation: () => Promise<void>;
 }
-export type { Phase, TransitionContext, BeginOptions, ConfigureOptions, Subscriber, NavigateFn, } from 'sero-core';
-//# sourceMappingURL=types.d.ts.map
+export type { Phase, TransitionContext, BeginOptions, ConfigureOptions, Subscriber, NavigateFn, } from '@sero/core';

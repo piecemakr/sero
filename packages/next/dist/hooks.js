@@ -63,4 +63,3 @@ export const useNavigate = () => {
     }, [beginTransition, setPaths, router, pathname]);
     return { navigate };
 };
-//# sourceMappingURL=hooks.js.map
