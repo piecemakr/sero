@@ -25,14 +25,13 @@ jobs:
         with:
           version: 8
 
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin -g)" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
       - name: Type check
         run: pnpm -w typecheck
+        shell: bash
 
   build:
     name: Build
@@ -53,14 +52,13 @@ jobs:
         with:
           version: 8
 
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin -g)" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
       - name: Build packages
         run: pnpm -w build
+        shell: bash
 
       - name: Check build artifacts
         run: |
@@ -87,17 +85,17 @@ jobs:
         with:
           version: 8
 
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin -g)" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
       - name: Build packages
         run: pnpm -w build
+        shell: bash
 
       - name: Run tests
         run: pnpm -w test
+        shell: bash
         continue-on-error: true
 
   lint:
@@ -118,12 +116,11 @@ jobs:
         with:
           version: 8
 
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin -g)" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
       - name: Run linting
         run: pnpm -w lint
+        shell: bash
         continue-on-error: true

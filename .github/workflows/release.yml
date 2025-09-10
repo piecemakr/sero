@@ -24,14 +24,13 @@ jobs:
         with:
           version: 8
 
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin -g)" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
       - name: Build packages
         run: pnpm -w build
+        shell: bash
 
       - name: Setup Git
         run: |
@@ -50,5 +49,6 @@ jobs:
 
       - name: Publish to npm
         run: pnpm -w publish --access public
+        shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

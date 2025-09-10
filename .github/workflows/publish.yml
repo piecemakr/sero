@@ -40,24 +40,26 @@ jobs:
         with:
           version: 8
 
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin -g)" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
       - name: Build packages
         run: pnpm build
+        shell: bash
 
       - name: Type check
         run: pnpm typecheck
+        shell: bash
 
       - name: Version packages (manual trigger)
         if: github.event_name == 'workflow_dispatch'
         run: pnpm -r exec -- npm version ${{ github.event.inputs.version }}
+        shell: bash
 
       - name: Publish to NPM
         run: pnpm -r publish --access public --no-git-checks
+        shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -84,14 +86,13 @@ jobs:
         with:
           version: 8
 
-      - name: Add pnpm to PATH
-        run: echo "$(pnpm bin -g)" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
       - name: Build packages
         run: pnpm build
+        shell: bash
 
       - name: Configure GitHub registry
         run: |
@@ -102,5 +103,6 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: pnpm -r publish --registry https://npm.pkg.github.com --no-git-checks
+        shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
