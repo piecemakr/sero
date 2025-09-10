@@ -33,33 +33,23 @@ jobs:
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        shell: bash
+        run: npm ci
 
       - name: Build packages
-        run: pnpm build
-        shell: bash
+        run: npm run build
 
       - name: Type check
-        run: pnpm typecheck
-        shell: bash
+        run: npm run typecheck
 
       - name: Version packages (manual trigger)
         if: github.event_name == 'workflow_dispatch'
-        run: pnpm -r exec -- npm version ${{ github.event.inputs.version }}
-        shell: bash
+        run: npm version ${{ github.event.inputs.version }} --workspaces
 
       - name: Publish to NPM
-        run: pnpm -r publish --access public --no-git-checks
-        shell: bash
+        run: npm run publish:npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -79,20 +69,13 @@ jobs:
         with:
           node-version: '20'
           registry-url: 'https://npm.pkg.github.com'
-          cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        shell: bash
+        run: npm ci
 
       - name: Build packages
-        run: pnpm build
-        shell: bash
+        run: npm run build
 
       - name: Configure GitHub registry
         run: |
@@ -102,7 +85,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to GitHub Packages
-        run: pnpm -r publish --registry https://npm.pkg.github.com --no-git-checks
-        shell: bash
+        run: npm run publish:github
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
