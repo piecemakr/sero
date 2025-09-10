@@ -21,17 +21,20 @@ importers:
         specifier: ^5.5.4
         version: 5.9.2
 
-  packages/react:
+  packages/next:
     dependencies:
+      '@sero/core':
+        specifier: workspace:*
+        version: link:../core
+      next:
+        specifier: '>=13.0.0'
+        version: 15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react:
         specifier: '>=18.0.0'
         version: 19.1.1
       react-dom:
         specifier: '>=18.0.0'
         version: 19.1.1(react@19.1.1)
-      sero-core:
-        specifier: workspace:*
-        version: link:../core
     devDependencies:
       '@types/react':
         specifier: ^18.3.12
@@ -46,20 +49,17 @@ importers:
         specifier: ^5.5.4
         version: 5.9.2
 
-  packages/sero-nextjs:
+  packages/react:
     dependencies:
-      next:
-        specifier: '>=13.0.0'
-        version: 15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@sero/core':
+        specifier: workspace:*
+        version: link:../core
       react:
         specifier: '>=18.0.0'
         version: 19.1.1
       react-dom:
         specifier: '>=18.0.0'
         version: 19.1.1(react@19.1.1)
-      sero-core:
-        specifier: workspace:*
-        version: link:../core
     devDependencies:
       '@types/react':
         specifier: ^18.3.12

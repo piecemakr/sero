@@ -2,7 +2,7 @@
 export { SeroProvider, useSero } from './context';
 
 // Hooks
-export { useRouteTransition, useTransitionState, useNavigate } from './hooks';
+export { useTransition, useTransitionState, useNavigate } from './hooks';
 
 // Components
 export { SeroLink, withSeroTransition } from './components';
@@ -11,7 +11,7 @@ export { SeroLink, withSeroTransition } from './components';
 export type {
   SeroProviderProps,
   SeroLinkProps,
-  UseRouteTransitionOptions,
+  UseTransitionOptions,
   SeroContextValue,
 } from './types';
 
@@ -23,4 +23,4 @@ export type {
   ConfigureOptions,
   Subscriber,
   NavigateFn,
-} from 'sero-core';
+} from '@sero/core';

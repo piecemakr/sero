@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useRef } from 'react';
-import { sero } from 'sero-core';
+import React, { createContext, useContext, useEffect, useRef, useMemo } from 'react';
+import { sero } from '@sero/core';
 import type { SeroContextValue, SeroProviderProps } from './types';
 
 const SeroContext = createContext<SeroContextValue | null>(null);
@@ -14,13 +14,13 @@ export const SeroProvider: React.FC<SeroProviderProps> = ({ children, options })
     }
   }, [options]);
 
-  const contextValue: SeroContextValue = {
+  const contextValue: SeroContextValue = useMemo(() => ({
     beginTransition: sero.beginTransition.bind(sero),
     subscribe: sero.subscribe.bind(sero),
     getState: sero.getState.bind(sero),
     setPaths: sero.setPaths.bind(sero),
     notifyExternalNavigation: sero.notifyExternalNavigation.bind(sero),
-  };
+  }), []);
 
   return (
     <SeroContext.Provider value={contextValue}>
@@ -32,7 +32,10 @@ export const SeroProvider: React.FC<SeroProviderProps> = ({ children, options })
 export const useSero = (): SeroContextValue => {
   const context = useContext(SeroContext);
   if (!context) {
-    throw new Error('useSero must be used within a SeroProvider');
+    throw new Error(
+      'useSero must be used within a SeroProvider. ' +
+      'Make sure to wrap your app with <SeroProvider> in your root component.'
+    );
   }
   return context;
 };

@@ -11,7 +11,7 @@ export async function withViewTransition(navigate: NavigateFn): Promise<void> {
     return;
   }
   try {
-    const vt = (document as any).startViewTransition(() => navigate());
+    const vt = (document as Document & { startViewTransition?: (callback: () => void) => { finished?: Promise<void> } }).startViewTransition?.(() => navigate());
     // browsers expose finished promise
     await vt?.finished?.catch(() => {});
   } catch {

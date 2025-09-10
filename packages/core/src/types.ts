@@ -36,3 +36,24 @@ export type ConfigureOptions = {
 export type Subscriber = (ctx: TransitionContext) => void | Promise<void>;
 
 export type NavigateFn = () => void | Promise<void>;
+
+export class SeroError extends Error {
+  constructor(message: string, public code?: string) {
+    super(message);
+    this.name = 'SeroError';
+  }
+}
+
+export class NavigationError extends SeroError {
+  constructor(message: string, public originalError?: Error) {
+    super(message, 'NAVIGATION_ERROR');
+    this.name = 'NavigationError';
+  }
+}
+
+export class TransitionError extends SeroError {
+  constructor(message: string, public originalError?: Error) {
+    super(message, 'TRANSITION_ERROR');
+    this.name = 'TransitionError';
+  }
+}

@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useSero } from './context';
-import type { TransitionContext, BeginOptions } from 'sero-core';
-import type { UseRouteTransitionOptions } from './types';
+import type { TransitionContext, BeginOptions } from '@sero/core';
+import type { UseTransitionOptions } from './types';
 
 /**
  * Hook to subscribe to route transition phases
  */
-export const useRouteTransition = (options: UseRouteTransitionOptions = {}) => {
+export const useTransition = (options: UseTransitionOptions = {}) => {
   const { subscribe } = useSero();
   const optionsRef = useRef(options);
 
@@ -32,7 +32,9 @@ export const useRouteTransition = (options: UseRouteTransitionOptions = {}) => {
       }
     });
 
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+    };
   }, [subscribe]);
 };
 

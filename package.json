@@ -8,7 +8,12 @@
     "build": "pnpm -r build",
     "dev": "pnpm -r dev",
     "typecheck": "pnpm -r typecheck",
-    "clean": "pnpm -r clean"
+    "clean": "pnpm -r clean",
+    "publish:npm": "pnpm -r publish --access public",
+    "publish:github": "pnpm -r publish --registry https://npm.pkg.github.com",
+    "version": "pnpm -r exec -- npm version",
+    "prepublish": "pnpm build && pnpm typecheck",
+    "release": "pnpm prepublish && pnpm publish:npm"
   },
   "devDependencies": {
     "typescript": "^5.5.4"

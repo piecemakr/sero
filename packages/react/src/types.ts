@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { ConfigureOptions, BeginOptions, TransitionContext } from 'sero-core';
+import type { ConfigureOptions, BeginOptions, TransitionContext } from '@sero/core';
 
 export interface SeroProviderProps {
   children: ReactNode;
@@ -19,7 +19,7 @@ export interface SeroLinkProps {
   prefetch?: boolean;
 }
 
-export interface UseRouteTransitionOptions {
+export interface UseTransitionOptions {
   onEntering?: (context: TransitionContext) => void | Promise<void>;
   onExiting?: (context: TransitionContext) => void | Promise<void>;
   onNavigating?: (context: TransitionContext) => void | Promise<void>;

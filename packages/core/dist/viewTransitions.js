@@ -1,19 +1,14 @@
-/**
- * Wrap navigation with the View Transitions API when available and requested.
- * Falls back to plain navigate if unsupported or throws.
- */
 export async function withViewTransition(navigate) {
-    // Guard for server/old browsers
     if (typeof document === 'undefined' || !('startViewTransition' in document)) {
         await navigate();
         return;
     }
     try {
-        const vt = document.startViewTransition(() => navigate());
-        // browsers expose finished promise
+        const vt = document.startViewTransition?.(() => navigate());
         await vt?.finished?.catch(() => { });
     }
     catch {
         await navigate();
     }
 }
+//# sourceMappingURL=viewTransitions.js.map

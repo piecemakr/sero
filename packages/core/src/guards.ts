@@ -2,8 +2,9 @@ import { sleep } from './utils';
 
 export async function withDelay<T>(fn: () => T | Promise<T>, ms?: number): Promise<T> {
   if (!ms || ms <= 0) return Promise.resolve(fn());
+  const result = await fn();
   await sleep(ms);
-  return fn();
+  return result;
 }
 
 /** Ensures fn settles within timeoutMs; if it doesn't, resolve anyway. */

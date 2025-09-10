@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from './hooks';
 import type { SeroLinkProps } from './types';
+import { NavigationError } from '@sero/core';
 
 /**
  * Link component that triggers route transitions
  */
-export const SeroLink: React.FC<SeroLinkProps> = ({
+export const SeroLink: React.FC<SeroLinkProps> = React.memo(({
   href,
   children,
   className,
@@ -37,7 +38,10 @@ export const SeroLink: React.FC<SeroLinkProps> = ({
             shallow,
           });
         } catch (error) {
-          console.error('Navigation failed:', error);
+          const navError = error instanceof NavigationError 
+            ? error 
+            : new NavigationError('Navigation failed', error instanceof Error ? error : undefined);
+          console.error('Navigation failed:', navError);
           // Fallback to regular navigation
           window.location.href = href;
         }
@@ -72,15 +76,15 @@ export const SeroLink: React.FC<SeroLinkProps> = ({
       {children}
     </a>
   );
-};
+});
 
 /**
  * Higher-order component to wrap existing Link components with transition support
  */
-export const withSeroTransition = <P extends object>(
-  LinkComponent: React.ComponentType<P & { href: string; onClick?: (event: React.MouseEvent) => void }>
+export const withSeroTransition = <P extends { href: string; onClick?: (event: React.MouseEvent) => void }>(
+  LinkComponent: React.ComponentType<P>
 ) => {
-  return React.forwardRef<any, P & { href: string; transitionOptions?: any }>(
+  return React.forwardRef<HTMLElement, P & { transitionOptions?: import('@sero/core').BeginOptions }>(
     ({ transitionOptions = {}, href, ...props }, ref) => {
       const { navigate } = useNavigate();
 
@@ -91,7 +95,10 @@ export const withSeroTransition = <P extends object>(
             try {
               await navigate(href, transitionOptions);
             } catch (error) {
-              console.error('Navigation failed:', error);
+              const navError = error instanceof NavigationError 
+                ? error 
+                : new NavigationError('Navigation failed', error instanceof Error ? error : undefined);
+              console.error('Navigation failed:', navError);
               window.location.href = href;
             }
           }
@@ -101,7 +108,7 @@ export const withSeroTransition = <P extends object>(
 
       return (
         <LinkComponent
-          {...(props as P)}
+          {...(props as unknown as P)}
           href={href}
           ref={ref}
           onClick={handleClick}

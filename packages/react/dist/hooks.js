@@ -1,12 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useSero } from './context';
-/**
- * Hook to subscribe to route transition phases
- */
-export const useRouteTransition = (options = {}) => {
+export const useTransition = (options = {}) => {
     const { subscribe } = useSero();
     const optionsRef = useRef(options);
-    // Update options ref when they change
     useEffect(() => {
         optionsRef.current = options;
     }, [options]);
@@ -25,26 +21,20 @@ export const useRouteTransition = (options = {}) => {
                     break;
             }
         });
-        return unsubscribe;
+        return () => {
+            unsubscribe();
+        };
     }, [subscribe]);
 };
-/**
- * Hook to get current transition state
- */
 export const useTransitionState = () => {
     const { getState } = useSero();
     return getState();
 };
-/**
- * Hook for programmatic navigation with transitions
- */
 export const useNavigate = () => {
     const { beginTransition, setPaths } = useSero();
     const navigate = (href, options = {}) => {
         const { replace = false, scroll = true, shallow = false, ...transitionOptions } = options;
-        // Set paths for the transition
         setPaths(window.location.pathname, href);
-        // Create navigation function
         const navigateFn = () => {
             if (replace) {
                 window.history.replaceState(null, '', href);
@@ -52,7 +42,6 @@ export const useNavigate = () => {
             else {
                 window.history.pushState(null, '', href);
             }
-            // Trigger Next.js router if available
             if (typeof window !== 'undefined' && window.next?.router) {
                 const router = window.next.router;
                 if (replace) {
@@ -63,7 +52,6 @@ export const useNavigate = () => {
                 }
             }
             else {
-                // Fallback for non-Next.js apps
                 window.location.href = href;
             }
         };
@@ -71,3 +59,4 @@ export const useNavigate = () => {
     };
     return { navigate };
 };
+//# sourceMappingURL=hooks.js.map

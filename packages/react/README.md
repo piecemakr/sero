@@ -5,7 +5,11 @@ React adapter for Sero route transitions. Provides React components and hooks fo
 ## Installation
 
 ```bash
-pnpm add sero-react sero-core
+npm install @sero/react @sero/core
+# or
+pnpm add @sero/react @sero/core
+# or
+yarn add @sero/react @sero/core
 ```
 
 ## Quick Start
@@ -13,7 +17,7 @@ pnpm add sero-react sero-core
 ### 1. Wrap your app with SeroProvider
 
 ```tsx
-import { SeroProvider } from 'sero-react';
+import { SeroProvider } from '@sero/react';
 
 function App() {
   return (
@@ -33,7 +37,7 @@ function App() {
 ### 2. Use SeroLink for navigation
 
 ```tsx
-import { SeroLink } from 'sero-react';
+import { SeroLink } from '@sero/react';
 
 function Navigation() {
   return (
@@ -55,10 +59,10 @@ function Navigation() {
 ### 3. Subscribe to transition phases
 
 ```tsx
-import { useRouteTransition } from 'sero-react';
+import { useTransition } from '@sero/react';
 
 function MyComponent() {
-  useRouteTransition({
+  useTransition({
     onExiting: (context) => {
       // Animate out
       console.log('Exiting to:', context.nextPath);
@@ -76,7 +80,7 @@ function MyComponent() {
 ### 4. Programmatic navigation
 
 ```tsx
-import { useNavigate } from 'sero-react';
+import { useNavigate } from '@sero/react';
 
 function MyButton() {
   const { navigate } = useNavigate();
@@ -190,7 +194,7 @@ navigate('/path', {
 Wrap existing Link components with transition support.
 
 ```tsx
-import { withSeroTransition } from 'sero-react';
+import { withSeroTransition } from '@sero/react';
 import { Link } from 'next/link';
 
 const TransitionLink = withSeroTransition(Link);
@@ -207,7 +211,7 @@ For Next.js App Router, you can create a custom Link component:
 
 ```tsx
 // components/SeroNextLink.tsx
-import { withSeroTransition } from 'sero-react';
+import { withSeroTransition } from '@sero/react';
 import Link from 'next/link';
 
 export const SeroNextLink = withSeroTransition(Link);

@@ -10,13 +10,17 @@ Framework-agnostic core for route transitions in Next.js App Router–style apps
 ## Install
 
 ```bash
-pnpm add sero-core
+npm install @sero/core
+# or
+pnpm add @sero/core
+# or
+yarn add @sero/core
 ```
 
 ## Quick Start (pseudo)
 
 ```typescript
-import { sero } from 'sero-core';
+import { sero } from '@sero/core';
 
 // 1) Configure global defaults (optional)
 sero.configure({
