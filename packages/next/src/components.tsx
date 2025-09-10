@@ -4,7 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useNavigate } from './hooks';
 import type { SeroNextLinkProps } from './types';
-import { NavigationError } from '@sero/core';
+import { NavigationError } from '@piecemakr/sero-core';
 
 /**
  * Next.js Link component that triggers route transitions
@@ -79,7 +79,7 @@ export const SeroNextLink: React.FC<SeroNextLinkProps> = React.memo(({
 export const withSeroTransition = <P extends { href: string; onClick?: (event: React.MouseEvent) => void }>(
   LinkComponent: React.ComponentType<P>
 ) => {
-  return React.forwardRef<HTMLElement, P & { transitionOptions?: import('@sero/core').BeginOptions }>(
+  return React.forwardRef<HTMLElement, P & { transitionOptions?: import('@piecemakr/sero-core').BeginOptions }>(
     ({ transitionOptions = {}, href, ...props }, ref) => {
       const { navigate } = useNavigate();
 

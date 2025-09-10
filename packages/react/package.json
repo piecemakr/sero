@@ -1,6 +1,6 @@
 {
-  "name": "@sero/react",
-  "version": "0.1.1",
+  "name": "@piecemakr/sero-react",
+  "version": "0.1.2",
   "description": "React adapter for Sero route transitions",
   "license": "MIT",
   "type": "module",
@@ -10,7 +10,7 @@
   "homepage": "https://github.com/troyhancock/sero#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/troyhancock/sero.git",
+    "url": "git+https://github.com/troyhancock/sero.git",
     "directory": "packages/react"
   },
   "bugs": {
@@ -51,7 +51,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@sero/core": "^0.1.1"
+    "@piecemakr/sero-core": "^0.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

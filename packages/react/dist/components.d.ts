@@ -11,5 +11,5 @@ export declare const withSeroTransition: <P extends {
     href: string;
     onClick?: (event: React.MouseEvent) => void;
 }>(LinkComponent: React.ComponentType<P>) => React.ForwardRefExoticComponent<React.PropsWithoutRef<P & {
-    transitionOptions?: import("@sero/core").BeginOptions;
+    transitionOptions?: import("@piecemakr/sero-core").BeginOptions;
 }> & React.RefAttributes<HTMLElement>>;

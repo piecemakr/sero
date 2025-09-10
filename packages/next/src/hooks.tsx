@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSeroNext } from './context';
-import type { TransitionContext, BeginOptions } from '@sero/core';
+import type { TransitionContext, BeginOptions } from '@piecemakr/sero-core';
 import type { UseTransitionOptions } from './types';
 
 /**

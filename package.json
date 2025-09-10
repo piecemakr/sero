@@ -14,7 +14,7 @@
     "clean": "npm run clean --workspaces",
     "lint": "echo 'Linting not configured yet'",
     "test": "echo 'Tests not configured yet'",
-    "publish:npm": "node scripts/publish-npm.js",
+    "publish:npm": "node scripts/publish-npm.cjs",
     "publish:github": "npm publish --workspaces --registry https://npm.pkg.github.com",
     "version": "npm version --workspaces",
     "prepublish": "npm run build && npm run typecheck",
@@ -26,5 +26,8 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@piecemakr/sero-core": "^0.1.2"
   }
 }

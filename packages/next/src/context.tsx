@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useRef, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { sero } from '@sero/core';
+import { sero } from '@piecemakr/sero-core';
 import type { SeroNextContextValue, SeroNextProviderProps } from './types';
 
 const SeroNextContext = createContext<SeroNextContextValue | null>(null);

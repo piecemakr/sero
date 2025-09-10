@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useContext, useEffect, useRef, useMemo } from 'react';
-import { sero } from '@sero/core';
+import { sero } from '@piecemakr/sero-core';
 const SeroContext = createContext(null);
 export const SeroProvider = ({ children, options }) => {
     const configuredRef = useRef(false);

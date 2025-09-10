@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useMemo } from 'react';
-import { sero } from '@sero/core';
+import { sero } from '@piecemakr/sero-core';
 import type { SeroContextValue, SeroProviderProps } from './types';
 
 const SeroContext = createContext<SeroContextValue | null>(null);

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useSero } from './context';
-import type { TransitionContext, BeginOptions } from '@sero/core';
+import type { TransitionContext, BeginOptions } from '@piecemakr/sero-core';
 import type { UseTransitionOptions } from './types';
 
 /**

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { ConfigureOptions, BeginOptions, TransitionContext } from '@sero/core';
+import type { ConfigureOptions, BeginOptions, TransitionContext } from '@piecemakr/sero-core';
 
 export interface SeroNextProviderProps {
   children: ReactNode;

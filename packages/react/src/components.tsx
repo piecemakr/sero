@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from './hooks';
 import type { SeroLinkProps } from './types';
-import { NavigationError } from '@sero/core';
+import { NavigationError } from '@piecemakr/sero-core';
 
 /**
  * Link component that triggers route transitions
@@ -84,7 +84,7 @@ export const SeroLink: React.FC<SeroLinkProps> = React.memo(({
 export const withSeroTransition = <P extends { href: string; onClick?: (event: React.MouseEvent) => void }>(
   LinkComponent: React.ComponentType<P>
 ) => {
-  return React.forwardRef<HTMLElement, P & { transitionOptions?: import('@sero/core').BeginOptions }>(
+  return React.forwardRef<HTMLElement, P & { transitionOptions?: import('@piecemakr/sero-core').BeginOptions }>(
     ({ transitionOptions = {}, href, ...props }, ref) => {
       const { navigate } = useNavigate();
 

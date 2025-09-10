@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React, { useCallback } from 'react';
 import { useNavigate } from './hooks';
-import { NavigationError } from '@sero/core';
+import { NavigationError } from '@piecemakr/sero-core';
 /**
  * Link component that triggers route transitions
  */

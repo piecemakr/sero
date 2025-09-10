@@ -1,4 +1,4 @@
-import type { BeginOptions } from '@sero/core';
+import type { BeginOptions } from '@piecemakr/sero-core';
 import type { UseTransitionOptions } from './types';
 /**
  * Hook to subscribe to route transition phases
