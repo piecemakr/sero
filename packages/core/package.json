@@ -1,6 +1,6 @@
 {
   "name": "@sero/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Core transition coordinator for Next.js App Router (framework-agnostic).",
   "license": "MIT",
   "type": "module",

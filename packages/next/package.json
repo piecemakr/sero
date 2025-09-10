@@ -1,6 +1,6 @@
 {
   "name": "@sero/nextjs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Next.js integration for Sero route transitions",
   "license": "MIT",
   "type": "module",
@@ -52,7 +52,7 @@
     "next": ">=13.0.0"
   },
   "dependencies": {
-    "@sero/core": "*"
+    "@sero/core": "^0.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

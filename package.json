@@ -1,6 +1,6 @@
 {
   "name": "sero",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework-agnostic route transitions for Next.js App Router",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
     "clean": "npm run clean --workspaces",
     "lint": "echo 'Linting not configured yet'",
     "test": "echo 'Tests not configured yet'",
-    "publish:npm": "npm publish --workspaces --access public",
+    "publish:npm": "node scripts/publish-npm.js",
     "publish:github": "npm publish --workspaces --registry https://npm.pkg.github.com",
     "version": "npm version --workspaces",
     "prepublish": "npm run build && npm run typecheck",

@@ -1,6 +1,6 @@
 {
   "name": "@sero/react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React adapter for Sero route transitions",
   "license": "MIT",
   "type": "module",
@@ -51,7 +51,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@sero/core": "*"
+    "@sero/core": "^0.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
